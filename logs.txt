@@ -1,0 +1,962 @@
+[2025-05-25 14:05:19] Rezultat: ✅ LEGITIM
+Text: import tkinter as tk
+from tkinter import messagebox
+import joblib
+import os
+from datetime import datetime
+
+# Verificăm dacă fișierele există
+if not os.path.exists("phishing_model.pkl") or not os.path.exists("vectorizer.pkl"):
+    messagebox.showerror("Eroare", "Fișierele modelului nu au fost găsite!")
+    exit()
+
+# Încarcă modelul și vectorizatorul
+model = joblib.load("phishing_model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
+
+# Funcția de verificare phishing
+def check_email():
+    email_text = text_input.get("1.0", tk.END).strip()
+    if not email_text:
+        messagebox.showwarning("Atenție", "Introdu textul e-mailului.")
+        return
+
+    vectorized = vectorizer.transform([email_text])
+    prediction = model.predict(vectorized)
+
+    verdict = "⚠️ PHISHING!" if prediction[0] == 1 else "✅ LEGITIM"
+    result.set(verdict)
+
+    # Salvare log
+    with open("logs.txt", "a", encoding="utf-8") as f:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"[{timestamp}] Rezultat: {verdict}\nText: {email_text}\n{'-'*50}\n")
+
+# Funcția de resetare
+def reset_fields():
+    text_input.delete("1.0", tk.END)
+    result.set("")
+
+# UI
+root = tk.Tk()
+root.title("Detector Phishing E-mail")
+root.geometry("600x450")
+
+tk.Label(root, text="Introdu textul e-mailului:", font=("Arial", 12)).pack(pady=10)
+text_input = tk.Text(root, height=10, width=70)
+text_input.pack()
+
+frame_buttons = tk.Frame(root)
+frame_buttons.pack(pady=10)
+
+tk.Button(frame_buttons, text="Verifică", command=check_email, font=("Arial", 12)).pack(side=tk.LEFT, padx=10)
+tk.Button(frame_buttons, text="Resetează", command=reset_fields, font=("Arial", 12)).pack(side=tk.LEFT, padx=10)
+
+result = tk.StringVar()
+tk.Label(root, textvariable=result, font=("Arial", 14, "bold"), fg="blue").pack(pady=20)
+
+root.mainloop()
+--------------------------------------------------
+[2025-05-25 14:05:34] Rezultat: ⚠️ PHISHING!
+Text: REPLY TO : princekhalifa_mss2009@yahoo.co.uk
+CALL ME ON MY MOBILE PHONE NUMBER-234-8033254502
+
+ATTENTION CEO/PRESIDENT
+I PRESUME THE RECEIPT OF THIS MESSAGE WILL BE A SURPRISE TO YOU, SINCE YOU HAVE NO KNOWLEDGE OF ME.
+I AM SON TO THE LATE PRESIDENT OF THE CONGO DEMOCRATIC REPUBLIC, FORMERLY ( MOBUTU SESE SEKO) WHO DIED OF A CANCEROUS DISEASE WHILE ON EXILE, AFTER BEING OVERTHROWN FROM GOVERNMENT BY THE REBEL(LATE LAURENT KABILA). 
+SINCE THIS COUP D'ETAT, MY FATHER HAD GONE ON EXILE IN DIFFERENT COUNTRIES AND WE(THE CHILDREN)HAVE SINCE THEN LOST CONTACT OF EACH OTHER. PRESENTLY, I AM SEEKING ASYLUM IN NIGERIA WITH A CLOSE ASSOCIATE OF MY LATE FATHER, WHILE MY LIFE HAS BEEN THREATHENED AS I HAVE RECIEVED THREAT MESSAGES FROM ALLIES OF MY LATE FATHERS ENEMIES WHO ARE STILL IN TOP GOVERNMENT POSITIONS IN MY COUNTRY (ZAIRE). 
+NOW, BEFORE THE OVERTHROWN OF MY FATHER, HE HAD ARRANGED FUNDS IN SAFE DEPOSITS WITH DIFFERENT SECURITY COMPANIES TO TAKE CARE OF HIS FAMILY, AS HE BELIEVED HE WOULD BE MURDERED SINCE ALL COUPS HERE IN AFRICA HAS ALWAYS RESORTED TO THE BRUTAL KILLING OF THE HEAD. 
+THE DOCUMENTS FROM THE SECURITY COMPANIES WHERE THE FUNDS ARE LODGE WERE SHARED AMONG THE MEMBERS OF THE FAMILY s BEFORE THE DEATH OF MY FATHER, HE HAD ADVISED US TO LOOK FOR FORIEGHN PARTNERS THAT WILL HELP US AND INVEST THE MONEY IN ORTHER NOT TO BE TRACED BACK FROM US AND ENDANGER OUR LIVES.
+I AM ALSO BEING PRESSURED HERE IN NIGERIA BY SOME GOVERNMENT OFFICIALS WHO ARE DEMANDING FOR THIS DOCUMENTS TO ASSIST ME, BUT I DO NOT TRUST THE NIGERIAN PEOPLE. WITH THIS FUNDS, WHICH IS $15M (FIFTEEN MILLION UNITED STATE DOLLARS) I INTEND BUYING A HOUSE IN YOUR COUNTRY AND INVESTING PART OF THE FUNDS INTO ANY LUCRATIVE BUSINESS VENTURE WITH YOUR ASSISTANCE. 
+I WOULD ALSO LIKE US TO DISCUSS ON THE PERCENTAGE YOU CARE OVER THERE IN YOUR COUNTRY. FOR FURTHER BRIEFINGS, I WILL LIKE TO ACKNOWLEDGE YOUR RECEIPT OF THIS LETTER AND RESPONSE WITH YOUR TEL NUMBER & FAX ADDRESS THROUGH MY PRIVATE E-MAIL ADDRESS THANKS IN ANTICIPATION FOR YOUR ASSISTANCE.
+ 
+YOUR FAITHFULLY, 
+
+KHALIFA SESE SEKO 
+
+
+
+
+
+___________________________________________________
+GO.com Mail                                    
+Get Your Free, Private E-mail at http://mail.go.com
+--------------------------------------------------
+[2025-05-25 14:05:44] Rezultat: ⚠️ PHISHING!
+Text: FROM: MR WILLIAMS DANIEL
+
+DEMOCRATIC REPUBLIC OF CONGO.
+
+EMAIL:   williamsd1@rediff.com
+
+Dear Friend,
+ 
+SEEKING YOUR IMMEDIATE ASSISTANCE.
+Please Permit me to make your acquaintance in so
+informal a manner. This is necessitated by my urgent
+need to reach a dependable and trust wordy foreign
+partner. This request may seem strange and
+unsolicited but I will crave your indulgence and pray
+that you view it seriously. My name is MR WILLIAMS DANIEL of the Democratic Republic of Congo and One of the
+close aides to the former President of the Democratic
+Republic of Congo LAURENT KABILA of blessed
+memory, may his soul rest in peace.
+ 
+Due to the military campaign of LAURENT KABILA to
+force out the rebels in my country, I and some of my
+colleagues were instructed by Late President Kabila
+to  go abroad to purchase arms and ammunition worth of
+Twenty Million, Five Hundred Thousand United States
+Dollars only (US$20,500,000.00) to fight the rebel
+group. But when President Kabila was killed in a
+bloody shoot-out by one of his aide a day before we
+were schedule to travel out of Congo, We immediately 
+decided to divert the fund into a private security
+company here in Congo for safe keeping. The security
+of the said amount is presently being threatened here
+following the arrest and seizure of properties of Col.
+Rasheidi Karesava (One of the aides to Laurent Kabila)
+a tribesman, and some other Military Personnel from
+our same tribe, by the new President of the Democratic
+Republic of Congo, the son of late President Laurent
+Kabila, Joseph Kabila. 
+In view of this, we need a reliable and trustworthy
+foreign partner who can assist us to move this money
+out of my country as the beneficiary.
+WE have sufficient ''CONTACTS'' to move the fund under
+Diplomatic Cover to a security company in the europe
+in your name. This is to ensure that the Diplomatic
+Baggage is marked ''CONFIDENTIAL'' and it  will not
+pass through normal custom/airport screening and
+clearance.
+Our inability to move this money out of Congo all
+This while lies on our lack of trust on our supposed
+good friends (western countries) who suddenly became
+hostile to those of us who worked with the late
+President Kabila, immediately after his son took
+office. Though we have neither seen nor met each
+other, the information We gathered from an associate
+who has worked in your country has encouraged and
+convinced us that with your sincere assistance, this
+transaction will be properly handled with modesty
+and honesty to a huge success within two weeks. The
+said money is a state fund and therefore requires a
+total confidentiality.
+Thus, if you are willing to assist us move this fund
+out of Congo, you can contact me through my email
+address above with your telephone, fax number and
+personal information to enable us discuss the
+modalities and what will be your share
+(percentage) for assisting us.
+I must use this opportunity and medium to implore You
+to exercise the utmost indulgence to keep this Matter
+extraordinarily confidential, Whatever your Decision,
+while I await your prompt response. Thank you and
+GodBless.
+ 
+Best Regards
+MR WILLIAMS DANIEL
+
+--------------------------------------------------
+This email is a free service of Phantom Email
+available at http://phantomemail.com/.
+Looking for a date?  Check out http://personalinteractions.com/go/p185.
+--------------------------------------------------
+[2025-05-25 14:05:50] Rezultat: ⚠️ PHISHING!
+Text: salut
+--------------------------------------------------
+[2025-05-25 14:05:51] Rezultat: ⚠️ PHISHING!
+Text: salut
+--------------------------------------------------
+[2025-05-25 14:05:51] Rezultat: ⚠️ PHISHING!
+Text: salut
+--------------------------------------------------
+[2025-05-25 14:05:51] Rezultat: ⚠️ PHISHING!
+Text: salut
+--------------------------------------------------
+[2025-05-25 14:05:53] Rezultat: ⚠️ PHISHING!
+Text: FROM: MR WILLIAMS DANIEL
+
+DEMOCRATIC REPUBLIC OF CONGO.
+
+EMAIL:   williamsd1@rediff.com
+
+Dear Friend,
+ 
+SEEKING YOUR IMMEDIATE ASSISTANCE.
+Please Permit me to make your acquaintance in so
+informal a manner. This is necessitated by my urgent
+need to reach a dependable and trust wordy foreign
+partner. This request may seem strange and
+unsolicited but I will crave your indulgence and pray
+that you view it seriously. My name is MR WILLIAMS DANIEL of the Democratic Republic of Congo and One of the
+close aides to the former President of the Democratic
+Republic of Congo LAURENT KABILA of blessed
+memory, may his soul rest in peace.
+ 
+Due to the military campaign of LAURENT KABILA to
+force out the rebels in my country, I and some of my
+colleagues were instructed by Late President Kabila
+to  go abroad to purchase arms and ammunition worth of
+Twenty Million, Five Hundred Thousand United States
+Dollars only (US$20,500,000.00) to fight the rebel
+group. But when President Kabila was killed in a
+bloody shoot-out by one of his aide a day before we
+were schedule to travel out of Congo, We immediately 
+decided to divert the fund into a private security
+company here in Congo for safe keeping. The security
+of the said amount is presently being threatened here
+following the arrest and seizure of properties of Col.
+Rasheidi Karesava (One of the aides to Laurent Kabila)
+a tribesman, and some other Military Personnel from
+our same tribe, by the new President of the Democratic
+Republic of Congo, the son of late President Laurent
+Kabila, Joseph Kabila. 
+In view of this, we need a reliable and trustworthy
+foreign partner who can assist us to move this money
+out of my country as the beneficiary.
+WE have sufficient ''CONTACTS'' to move the fund under
+Diplomatic Cover to a security company in the europe
+in your name. This is to ensure that the Diplomatic
+Baggage is marked ''CONFIDENTIAL'' and it  will not
+pass through normal custom/airport screening and
+clearance.
+Our inability to move this money out of Congo all
+This while lies on our lack of trust on our supposed
+good friends (western countries) who suddenly became
+hostile to those of us who worked with the late
+President Kabila, immediately after his son took
+office. Though we have neither seen nor met each
+other, the information We gathered from an associate
+who has worked in your country has encouraged and
+convinced us that with your sincere assistance, this
+transaction will be properly handled with modesty
+and honesty to a huge success within two weeks. The
+said money is a state fund and therefore requires a
+total confidentiality.
+Thus, if you are willing to assist us move this fund
+out of Congo, you can contact me through my email
+address above with your telephone, fax number and
+personal information to enable us discuss the
+modalities and what will be your share
+(percentage) for assisting us.
+I must use this opportunity and medium to implore You
+to exercise the utmost indulgence to keep this Matter
+extraordinarily confidential, Whatever your Decision,
+while I await your prompt response. Thank you and
+GodBless.
+ 
+Best Regards
+MR WILLIAMS DANIEL
+
+--------------------------------------------------
+This email is a free service of Phantom Email
+available at http://phantomemail.com/.
+Looking for a date?  Check out http://personalinteractions.com/go/p185.
+--------------------------------------------------
+[2025-05-25 14:06:06] Rezultat: ⚠️ PHISHING!
+Text: Dear sir,   I have a proposal foryou - this however is not mandatory nor will I in any manner compel you to go honour against your will.    I am 35, and had worked with a bank (one of the African  leading banks in the West Coast). Here in this bank  existed a dormant account for the past 8 years which  belong to a Syria national who is now late.    When we discovered that there had been no deposits nor  withdrawals from this account for this long period, I  and my two other colleagues decided to carry out a  system investigation and discovered that non of the  family member nor relations of the late Syrian is  aware of this account.    This is the story in a nutshell.    Now we want an account overseas where we can transfer  this funds. Thereafter, we had planned to destroy all  related documents for this account. It is a careful  network and for the past eleven months we have worked  out everything to ensure a hitch-free operation.      The amount is not so much at the moment and plus all  the accumulated interest the balance in this account  stands at-US$9,000.000.00 million US dollars.    Now our questions are:-    1. Can you handle this project?  2. Can we give you this trust?  3. What will be your commission?    Consider this and get back at us as soon as possible.    Finally, it is our humble prayer that the information as  contained herein be accorded the necessary  attention, urgency as well as the secrecy it deserves.    We Expect your urgent response if you can handle this  project. send a mail for confirmation.      Respectfully yours,    MR.Daniel Innoma. ------------------------------------------------------------ http://Game.37.com/  <--- Free Games http://newJoke.com/   <---  J O K E S  ! ! !
+--------------------------------------------------
+[2025-05-25 14:06:47] Rezultat: ✅ LEGITIM
+Text: Dear Cosmin,
+
+Thank you for your interest in the Technical Support Analyst opportunity at ACI Worldwide.
+
+We want to let you know that we have received your resume, and it is being reviewed by our Talent Acquisition Team. 
+
+Due to the high number of candidates who responded, it may take up to a week for the team to complete a review of your qualifications. 
+
+In the meantime, please visit our LinkedIn Life page where you can learn more about the life at ACI Worldwide!
+
+Thank you for your patience,
+
+ACI Worldwide Talent Acquisition Team
+--------------------------------------------------
+[2025-05-25 14:07:28] Rezultat: ✅ LEGITIM
+Text: Begin with the oft cited entry level IT/cyber role with the Practical Help Desk Associate.
+
+Then move into security analyst territory and expand your detection and forensics skills, capping off with the Practical SOC Analyst Associate.
+
+If you want to continue in a slightly more purple team route learning Malware Analysis with the Practical Malware Research Professional is beneficial for both offensive and defensive endeavors.
+
+Read the Blog
+
+
+What's on the Path?
+
+The path consists of 75+ Hours of on-demand training courses that can take you from entry-level skills to those of an advanced security researcher. Each certification comes with a free retake voucher and the vouchers do not expire.
+
+Once completed, you will have 3 blue team certifications, but more importantly the experience of...
+
+8 Hours of Simulated Help Desk Duties
+Cyber Security Investigation and Analysis
+Hands-on Malware Research and Triage
+
+Why TCM Certifications?
+
+Anyone who has taken one of our practical exams knows that we take the "practical" part very seriously. Our exams put you in the seat of whatever position you are testing for, granting you experience rather than just memorized facts, which you can draw on when talking to professionals in the industry (or hiring managers).
+
+Academy Signup
+
+TCM Certifications
+
+
+Happy Cyber Pathfinding!
+
+The TCMS Team
+--------------------------------------------------
+[2025-05-28 22:21:35] Rezultat: ✅ LEGITIM
+Text: IMPORTANT
+--------------------------------------------------
+[2025-05-28 22:21:47] Rezultat: ⚠️ PHISHING!
+Text: Dear Friend,
+
+I am Mr. Ben Suleman a custom officer and work as Assistant controller of the Customs and Excise department Of the Federal Ministry of Internal Affairs stationed at the Murtala Mohammed International Airport, Ikeja, Lagos-Nigeria.
+
+After the sudden death of the former Head of state of Nigeria General Sanni Abacha on June 8th 1998 his aides and immediate members of his family were arrested while trying to escape from Nigeria in a Chartered jet to Saudi Arabia with 6 trunk boxes Marked "Diplomatic Baggage". Acting on a tip-off as they attempted to board the Air Craft,my officials carried out a thorough search on the air craft and discovered that the 6 trunk boxes contained foreign currencies amounting to US$197,570,000.00(One Hundred and  Ninety-Seven Million Five Hundred Seventy Thousand United States Dollars).
+
+I declared only (5) five boxes to the government and withheld one (1) in my custody containing the sum of (US$30,000,000.00) Thirty Million United States Dollars Only, which has been disguised to prevent their being discovered during transportation process.Due to several media reports on the late head of state about all the money him and his co-government officials stole from our government treasury amounting
+to US$55 Billion Dollars (ref:ngrguardiannews.com) of July 2nd 1999. Even the London times of July 1998 reported that General Abacha has over US$3.Billion dollars in one account overseas. We decided to conceal this one (1)box till the situation is calm and quite on the issue. The box was thus deposited with a security company here in Nigeria and tagged as "Precious Stones and Jewellry" in other that its
+content will not be discovered. Now that all is calm, we (myself and two of my colleagues in the operations team) are now ready to move this box out of the country through a diplomatic arrangement which is the safest means. 
+
+However as government officials the Civil Service Code of Conduct does not allow us by law to operate any foreign account or own foreign investment and the amount of money that can be found in our account
+cannot be more than our salary on the average, thus our handicapp and our need for your assistance to help collect and keep safely in your account this money.
+
+Therefore we want you to assist us in moving this money out of Nigeria. We shall definitely compensate you handsomely for the assistance. We can do this by instructing the Security Company here in Nigeria to
+move the consignment to their affiliate branch office outside Nigeria through diplomatic means and the consignment will be termed as Precious Stones and Jewelleries" which you bought during your visit to Nigeria and is being transfered to your country from here for safe keeping. Then we can arrange to meet at the destination country to take the delivery of the consignment. You will thereafter open an account there and lodge the Money there and gradually instruct remittance to your Country. 
+
+This business is 100% risk free for you so please treat this matter with utmost confidentiality .If you indicate your interest to assist us please just e-mail me for more Explanation on how we plan to execute the transaction.
+
+Expecting your response urgently.
+
+Best regards,
+
+Mr. Ben Suleman
+--------------------------------------------------
+[2025-05-28 22:22:00] Rezultat: ⚠️ PHISHING!
+Text: Dear Friend,
+
+I am Mr. Ben Suleman a custom officer and work as Assistant controller of the Customs and Excise department Of the Federal Ministry of Internal Affairs stationed at the Murtala Mohammed International Airport, Ikeja, Lagos-Nigeria.
+
+After the sudden death of the former Head of state of Nigeria General Sanni Abacha on June 8th 1998 his aides and immediate members of his family were arrested while trying to escape from Nigeria in a Chartered jet to Saudi Arabia with 6 trunk boxes Marked "Diplomatic Baggage". Acting on a tip-off as they attempted to board the Air Craft,my officials carried out a thorough search on the air craft and discovered that the 6 trunk boxes contained foreign currencies amounting to US$197,570,000.00(One Hundred and  Ninety-Seven Million Five Hundred Seventy Thousand United States Dollars).
+
+I declared only (5) five boxes to the government and withheld one (1) in my custody containing the sum of (US$30,000,000.00) Thirty Million United States Dollars Only, which has been disguised to prevent their being discovered during transportation process.Due to several media reports on the late head of state about all the money him and his co-government officials stole from our government treasury amounting
+to US$55 Billion Dollars (ref:ngrguardiannews.com) of July 2nd 1999. Even the London times of July 1998 reported that General Abacha has over US$3.Billion dollars in one account overseas. We decided to conceal this one (1)box till the situation is calm and quite on the issue. The box was thus deposited with a security company here in Nigeria and tagged as "Precious Stones and Jewellry" in other that its
+content will not be discovered. Now that all is calm, we (myself and two of my colleagues in the operations team) are now ready to move this box out of the country through a diplomatic arrangement which is the safest means. 
+
+However as government officials the Civil Service Code of Conduct does not allow us by law to operate any foreign account or own foreign investment and the amount of money that can be found in our account
+cannot be more than our salary on the average, thus our handicapp and our need for your assistance to help collect and keep safely in your account this money.
+
+Therefore we want you to assist us in moving this money out of Nigeria. We shall definitely compensate you handsomely for the assistance. We can do this by instructing the Security Company here in Nigeria to
+move the consignment to their affiliate branch office outside Nigeria through diplomatic means and the consignment will be termed as Precious Stones and Jewelleries" which you bought during your visit to Nigeria and is being transfered to your country from here for safe keeping. Then we can arrange to meet at the destination country to take the delivery of the consignment. You will thereafter open an account there and lodge the Money there and gradually instruct remittance to your Country. 
+
+This business is 100% risk free for you so please treat this matter with utmost confidentiality .If you indicate your interest to assist us please just e-mail me for more Explanation on how we plan to execute the transaction.
+
+Expecting your response urgently.
+
+Best regards,
+
+Mr. Ben Suleman
+--------------------------------------------------
+[2025-05-28 22:22:08] Rezultat: ⚠️ PHISHING!
+Text: FROM: COL. MICHAEL BUNDU. 
+DEMOCRATIC REPUBLIC OF CONGO. 
+Tel No: Your country Intl. access code + 8821652098236
+email : mikebundu@rediffmail.com
+Dear Sir/Madam
+
+
+SEEKING YOUR IMMEDIATE ASSISTANCE. 
+
+Please permit me to make your acquaintance in so informal a manner. This is necessitated by my urgent need to reach a dependable and trust worthy foreign partner. This request may seem strange and unsolicited but I crave your indulgence and pray that you view it seriously. My name is COL. MICHAEL BUNDU of the Democratic Republic of Congo and one of the close aides to the former President of the Democratic Republic of Congo LAURENT KABILA of blessed memory, may his soul rest in peace. 
+
+Due to the military campaign of LAURENT KABILA to force out the rebels in my country, I and some of my colleagues were instructed by Late President Kabila to go abroad to purchase arms and ammunition worth of Twenty Million, Five Hundred Thousand United States Dollars only (US$20,500,000.00) to fight the rebel group. We were then given this money privately by the then President, LAURENT KABILA, without the knowledge of other Cabinet Members. But when President Kabila was killed in a bloody shoot-out by one of his bodyguards a day before we were schedule to travel out of Congo, We immediately decided to put the funds into a private security company here in Congo for safe keeping. 
+
+The security of the said amount is presently being threatened here following the arrest and seizure of properties of Col. Rasheidi Karesava (One of the aides to Laurent Kabila) a tribesman, and some other Military Personnel from our same tribe, by the new President of the Democratic Republic of Congo, the son of late President Laurent Kabila, Joseph Kabila. 
+
+In view of this, we need a reliable and trustworthy foreign partner who can assist us to move this money out of my country as the beneficiary. 
+WE have sufficient ''CONTACTS'' here to move the fund under Diplomatic Cover to a security company in Europe in your name. This is to ensure that the Diplomatic Baggage is marked ''CONFIDENTIAL'' and it 
+will not pass through normal custom/airport screening and clearance. 
+
+Our inability to move this money out of Congo all this while stems from our lack of trust of our supposed good friends (western countries) who suddenly became hostile to those of us who worked with the late President Kabila, immediately after his son took office. Though we have neither seen nor met each other, the information We gathered from an associate who has worked in your country has encouraged and convinced us that with your sincere assistance, this transaction will be properly handled with modesty and honesty to a huge success within two weeks. The said money is a state fund and therefore requires a total confidentiality. 
+
+We would please need you to stand on our behalf as the beneficiary of this fund in Europe. This is because we are under restricted movement and watch and hence we want to be very careful in order not to lose this fund which we have worked so hard for. Thus, if you are willing to assist us to move this fund out of Congo, you can contact me through my email addresses, Tel/Fax nos. above with your telephone, fax number and personal information to enable us discuss the modalities and what will be your share (percentage) for assisting us.
+
+Please note that There are no RISKS involved in this Deal as everyone's Security is Guaranteed if we follow the required guidelines. I will hence furnish you with further details of this Deal as soon as I am assured of your Sincere interest to assist us. 
+
+I must use this opportunity and medium to implore you to exercise the utmost indulgence to keep this matter extraordinarily confidential, Whatever your decision, while I await your prompt response. Thank you and God Bless. 
+Best Regards 
+
+
+COL. MICHAEL BUNDU(RTD). mikebundu@rediffmail.com
+
+N\\B. When you are calling my line, you dial your country Intl. access code, then you dial directly, do not include my country code i.e. (243). Just dial your country Intl. access code + 88216 52098236. You can also contact me through the above email addresses.
+--------------------------------------------------
+[2025-05-28 22:22:29] Rezultat: ⚠️ PHISHING!
+Text: Dear Sir,
+
+Let me first apologise to you for any mbarrassment
+this mail might cause you.
+I am MAHOYI BELLO, a cousin to the Vice Presidentof
+the Federal Republic of Nigeria (Alhaji Atiku) and
+Executive Director of SADIQ PETROLUEM LTD.I have
+decided to contact you for this business proposal
+based on the mutual understanding I know that can
+exist between us, having known that people of your
+Country are trustworthy.
+
+Since May 1999 when the new Government came to
+power,large sums of money have been recovered from our
+past military leaders who siphoned money from Nigeria
+and deposited it in offshore accounts in
+Europe,America,Asia and some parts of Africa, for
+their own selfish benefits. This happened during the
+military regime,Now we are under a democratically
+elected government. This fund was among the money
+recovered and seized by the Federal Government of
+Nigeria. 
+
+Hence, my elder cousin (Alhaji Atiku Abubakar) the
+Vice-President of Nigeria is in charge of all
+off-shore accounts seized and retrieved from our past
+military leaders.Therefore, we urged you to assist us
+provide a very vital offshore account, where the sum
+of US$25,000,000.00 (Twenty Five Million) US Dollars
+will be transferred for safe keeping. 
+
+Presently, this money is in a foreign Country I cannot
+mention now.Please note that other information will be
+detailed to you on the receipt of your reply. My
+elder cousin and I have agreed to give you (the
+account owner)for this transaction 30% of the total
+amount remitted while 60%is for me and Cousin Atiku,
+for the purchase of foreign investments, with your
+assistance after the money have been disbursed, while
+10% is for expenses both of us will incur.
+
+Note, I have been mandated by my elder cousin to
+handle this deal with you, due to his position in the
+Nigerian Government as the second citizen. Therefore,
+if my proposal satisfies you, kindly contact me via my
+e-mail address and enclose your phone and fax numbers
+for urgent confidential discussion.Your letter of
+acceptance indicating your personal telephone and fax
+numbers to enable us move ahead.
+
+Besides, this transaction is risk-free and hoped to
+last 7 (seven) banking days upon my elder cousin
+Alhaji Atiku Abubakar's authorisation.I thank you for
+your expected co-operation. 
+
+God Bless you.Best Regards.
+
+MAHOYI BELLO.
+
+
+
+
+
+_________________________________________________________ 
+Gagne une PS2 ! Envoie un SMS avec le code PS au 61166
+(0,35 Hors coÃ»t du SMS)
+--------------------------------------------------
+[2025-05-28 22:22:42] Rezultat: ⚠️ PHISHING!
+Text: Attn: The President, 
+
+Dear Sir, 
+
+My mail may come to you as a surprise, but sincerely this is a 
+proposal for a business deal that will benefit both of us. I am 
+contacting you after a frantic search for a person who will be 
+trustworthy and capable of handling a business of this dimension. 
+
+My name is Mr. Jonathan Mokoena, the Under-Secretary in charge of 
+Intergration at the Specialized Technical Committee of the African 
+Union (AU), formerly Organization of Afriacn Unity (OAU). You may be 
+aware of the transformation of the OAU to AU, and the mandate to 
+build a new united Africa modelled on the pattern of European Union 
+(EU). For this therefore, the various African leaders recently 
+inaugurated the New Patnership for African Development (NEPAD). NEPAD 
+is to streamline Africa towards achieving a common market, defence 
+force, currency, foreign policy, judiciary etc. For the above, the 
+various African countries have made whosoever contributions in 
+hundreds of million dollars. We have equally received grants/aids 
+from the EU, USA and other international governments and agencies. 
+These moneies in all have ran into millions of dollars. 
+
+
+As the officer in charge of receiving and managing these funds and 
+executing the projects for which they are ment for, I have received 
+all the money expected. I have also prepared my account which I have 
+submitted to the AU High Command, and it has been approved by the AU 
+Secratary-General, Dr. Amara Essy. However, in some of the money 
+received, some of the donor countries and international bodies 
+remitted to us amounts in excess of what they pledged. The AU before 
+now, has written to all of them to acknowledge the receipt of the 
+monies from them. The money in excess and which I have kept out with 
+only me having knowledge of it, is in the tune of Thirty-Five Million United States Dollars (US$35,000,000.00). As it is now, this money belongs to me, as neither the AU nor any of the donor countries/international agencies has declared their money missing. 
+
+
+I am therefore contacting you to assist me with the movement and 
+safe-keeping of this fund. As a public officer in my category, I 
+cannot openly put this money into any bank here in Addis Ababa, 
+Ethiopia, the AU headquarters where I am now, or in any other part of 
+Africa, as an account holder. This will surely raise eyebrows and 
+expose me. I have therefore concealed this amount of US$35M in four 
+metal trunk boxes, and declared them as artefacts belonging to a 
+foreigner. I deposited the boxes with a Security Company based in 
+Spain which has an affliate offices in Ghana, Cot d'Ivoire and South Africa. These cities are safe havens for this kind of transaction. 
+
+This transaction will however be hitch-free. So, I would therefore 
+want you to be in Banjul, The Gambia for the clearing and claiming of 
+this fund. I will furnish you with information/documents on how 
+
+you will stand as the beneficiary of the boxes. I have decided to 
+give to you 40% of the total amount involved. 
+
+Please I will want you to contact me on this e-mail address or the 
+alternative: (joe_mokoena@fastermail.com). 
+
+
+Also, you have to assure me of the secrecy and confidentiality in 
+this transaction. 
+
+Thanks in anticipation of your valued co-operation. 
+
+Mr. Jonathan Mokoena. 
+joe_mokoena@fastermail.com
+--------------------------------------------------
+[2025-05-28 22:23:05] Rezultat: ✅ LEGITIM
+Text: enron actuals march 30 april 1 201 estimated actuals march 30 2001 flow march 31 2001 flow april 1 2001 teco tap 35 000 receive actuals duke forward
+--------------------------------------------------
+[2025-05-28 22:23:41] Rezultat: ⚠️ PHISHING!
+Text: Man Threatens Explosion In Moscow 
+
+Thursday August 22, 2002 1:40 PM
+MOSCOW (AP) - Security officers on Thursday seized an unidentified man who
+said he was armed with explosives and threatened to blow up his truck in
+front of Russia's Federal Security Services headquarters in Moscow, NTV
+television reported.
+The officers seized an automatic rifle the man was carrying, then the man
+got out of the truck and was taken into custody, NTV said. No other details
+were immediately available.
+The man had demanded talks with high government officials, the Interfax and
+ITAR-Tass news agencies said. Ekho Moskvy radio reported that he wanted to
+talk with Russian President Vladimir Putin.
+Police and security forces rushed to the Security Service building, within
+blocks of the Kremlin, Red Square and the Bolshoi Ballet, and surrounded the
+man, who claimed to have one and a half tons of explosives, the news
+agencies said. Negotiations continued for about one and a half hours outside
+the building, ITAR-Tass and Interfax reported, citing witnesses.
+The man later drove away from the building, under police escort, and drove
+to a street near Moscow's Olympic Penta Hotel, where authorities held
+further negotiations with him, the Moscow police press service said. The
+move appeared to be an attempt by security services to get him to a more
+secure location. 
+
+------------------------ Yahoo! Groups Sponsor ---------------------~-->
+4 DVDs Free +s&p Join Now
+http://us.click.yahoo.com/pt6YBB/NXiEAA/mG3HAA/7gSolB/TM
+---------------------------------------------------------------------~->
+
+To unsubscribe from this group, send an email to:
+forteana-unsubscribe@egroups.com
+
+ 
+
+Your use of Yahoo! Groups is subject to http://docs.yahoo.com/info/terms/
+--------------------------------------------------
+[2025-05-28 22:23:54] Rezultat: ⚠️ PHISHING!
+Text: Man Threatens Explosion In Moscow 
+
+Thursday August 22, 2002 1:40 PM
+MOSCOW (AP) - Security officers on Thursday seized an unidentified man who
+said he was armed with explosives and threatened to blow up his truck in
+front of Russia's Federal Security Services headquarters in Moscow, NTV
+television reported.
+The officers seized an automatic rifle the man was carrying, then the man
+got out of the truck and was taken into custody, NTV said. No other details
+were immediately available.
+The man had demanded talks with high government officials, the Interfax and
+ITAR-Tass news agencies said. Ekho Moskvy radio reported that he wanted to
+talk with Russian President Vladimir Putin.
+Police and security forces rushed to the Security Service building, within
+blocks of the Kremlin, Red Square and the Bolshoi Ballet, and surrounded the
+man, who claimed to have one and a half tons of explosives, the news
+agencies said. Negotiations continued for about one and a half hours outside
+the building, ITAR-Tass and Interfax reported, citing witnesses.
+The man later drove away from the building, under police escort, and drove
+to a street near Moscow's Olympic Penta Hotel, where authorities held
+further negotiations with him, the Moscow police press service said. The
+move appeared to be an attempt by security services to get him to a more
+secure location. 
+
+------------------------ Yahoo! Groups Sponsor ---------------------~-->
+4 DVDs Free +s&p Join Now
+http://us.click.yahoo.com/pt6YBB/NXiEAA/mG3HAA/7gSolB/TM
+---------------------------------------------------------------------~->
+
+To unsubscribe from this group, send an email to:
+forteana-unsubscribe@egroups.com
+
+ 
+
+Your use of Yahoo! Groups is subject to http://docs.yahoo.com/info/terms/
+--------------------------------------------------
+[2025-05-28 22:24:02] Rezultat: ✅ LEGITIM
+Text: Al white wrote:
+
+ >erm... it runs Solaris x86 as standard...
+
+It runs Solaris 8 x86 as standard.
+(I was joking Al)
+
+M.
+
+
+-- 
+Irish Linux Users' Group: ilug@linux.ie
+http://www.linux.ie/mailman/listinfo/ilug for (un)subscription information.
+List maintainer: listmaster@linux.ie
+--------------------------------------------------
+[2025-05-28 22:24:20] Rezultat: ✅ LEGITIM
+Text: Al white wrote:
+
+ >erm... it runs Solaris x86 as standard...
+
+It runs Solaris 8 x86 as standard.
+(I was joking Al)
+
+M.
+
+
+-- 
+Irish Linux Users' Group: ilug@linux.ie
+http://www.linux.ie/mailman/listinfo/ilug for (un)subscription information.
+List maintainer: listmaster@linux.ie
+--------------------------------------------------
+[2025-05-28 22:48:05] Rezultat: ⚠️ PHISHING!
+Text: FROM HIS ROYAL MAJESTY (HRM) CROWN RULER OF ELEME KINGDOM 
+CHIEF DANIEL ELEME, PHD, EZE 1 OF ELEME.E-MAIL 
+ADDRESS:obong_715@epatra.com  
+
+ATTENTION:PRESIDENT,CEO Sir/ Madam. 
+
+This letter might surprise you because we have met
+neither in person nor by correspondence. But I believe
+it is one day that you got to know somebody either in
+physical or through correspondence. 
+
+I got your contact through discreet inquiry from the
+chambers of commerce and industry of your country on
+the net, you and your organization were revealed as
+being quite astute in private entrepreneurship, one
+has no doubt in your ability to handle a financialbusiness transaction. 
+
+However, I am the first son of His Royal
+majesty,Obong.D. Eleme , and the traditional Ruler of
+Eleme Province in the oil producing area of River
+State of Nigeria. I am making this contact to you in
+respect of US$60,000,000.00 (Sixty Million United
+State Dollars), which I inherited, from my latefather. 
+
+This money was accumulated from royalties paid to my
+father as compensation by the oil firms located in our
+area as a result of oil presence on our land, which
+hamper agriculture, which is our major source oflivelihood. 
+
+Unfortunately my father died from protracted
+diabetes.But before his death he called my attention
+and informed me that he lodged some funds on a two
+boxes with a security firm with an open beneficiary
+status. The lodgment security code number was also
+revealed to me, he then advised me to look for a
+reliable business partner abroad, that will assist me
+in investing the money in a lucrative business as a
+result of economic instability in Nigeria. So this is
+the main reason why I am contacting you for us to move
+this money from the security firm to any Country of
+your choice for investment purpose. 
+
+So I will like you to be the ultimate beneficiary, so
+that the funds can be moved in your name and
+particulars to any Country of your choice where it
+will be claimed and invested. Hence my father have had
+intimated the security firm personnel that the
+beneficiary of the box is his foreign partner whose
+particulars will be forwarded to the firm when due. 
+
+But I will guide you Accordingly. As soon as the funds
+reach, I will then come over to meet you in person, so
+that we can discuss physically on investment
+potentials. Based on this assistance my Family and I
+have unanimously decided to give you 30% of the total
+money, 5% for Charity home, 10% for expenses, which
+may arise during this transaction, Fax and phone bills
+inclusive. The balance of 55% you will invest andmanaged for my Family. 
+
+I hereby guarantee you that this is not government
+money, it is not drug money and it is not money from
+arms deal. Though you have to maintain high degree of
+confidentiality on this matter. I will give more
+details about the proceedings of this transaction as
+soon as I receive your favorable reply. 
+
+Please reply to my Email Address:obong_715@epatra.com
+I hope this will be the beginning of a prosperous
+relationship between my family and your family. 
+
+Nevertheless if you are for any reason not interested,
+kindly inform me immediately so that I will look foranother contact. 
+
+I am waiting for your quick response. 
+
+Yours faithfully, 
+
+Prince Obong Eleme
+--------------------------------------------------
+[2025-05-28 22:48:23] Rezultat:  LEGITIM
+Text: Ref: 34652 - CIC Associate Program - Security Consultant
+
+Dear Cosmin - Ionut Trifu,
+ 
+We regret to inform you that after careful consideration, we have decided to pursue other candidates whose application more closely aligns with the specific requirements of the position. We appreciate the time and effort you invested in the application process.
+ 
+As per our company policies, your application will be kept active in our system for other IBM Recruiters to review for 12 months (or 6 months for residents of Germany and Austria).
+
+We highly encourage you to join our Talent Network, connect with us on Social Media and continue to visit the IBM Careers website. This will ensure that you’re one of the first to see opportunities in the future.
+
+Additionally, I would like to share some free online learning resources that IBM has made available to anyone who may be interested.
+
+Offerings include:
+IBM Skills
+IBM Skills helps you build critical technology skills for today and stay competitive tomorrow. IBM has made thousands of online courses and badge certifications freely available. This includes offerings IBM has created in partnership with universities from all over the world. You can find more information here - https://skillsbuild.org/
+
+Open P-Tech
+Technology and jobs are changing faster than education systems. Open P-Tech, for teachers and students, allows students aged 14-20 to complete coursework on the platform and earn industry recognized “digital badges” that can be added to their resumes and social networks.
+
+We hope that you will take advantage of these offerings for yourself and please feel free to share these resources with your family and friends.
+
+Your interest in IBM is appreciated and we wish you the best in your future endeavors.
+
+Sincerely,
+IBM Talent Acquisition Team
+--------------------------------------------------
+[2025-05-29 10:16:28] Rezultat: ⚠️ PHISHING!
+Text: Dear Sir,
+
+I am Barrister Tunde Dosumu (SAN) solicitor at law. I am the personal attorney to Mr. Eton Simon, a national of your country, who used to work with Shell Petroleum Development Company (SPDC)here in Nigeria. Here in after shall be referred to  me as my client.  On the 21st of April 2000, my client, his wife And  their three children were involved in a car accident along Sagbama Express Road. All occupants of the  vehicle unfortunately lost there lives.  Since then I  have made several enquiries to your embassy to locate  any of my clients extended relatives this has also  proved unsuccessful. 
+
+After these several unsuccessful attempts, I decided  to track his last name over the Internet, to locate  any member of his family hence I contacted you.  I  have contacted you to assist in repatrating the money  and property left behind by my client before they get confisicated or declared unserviceable by the bank  where this huge deposits were lodged, particularly, the CITI TRUST BANK where the deceased had an  account valued at about US$14.7million dollars . The bank has issued me a notice to provide the next of kin or have the account confisicated within the next ten official
+working days. 
+
+Since I have been unsuccesfull in locating the the relatives for over 2 years now I seek your consent to present you as the next of kin of the deceased since
+you have the same last name  so that the proceeds of this account valued at US$14.7 million dollars can be paid to you and then you and me can share the money. I have all necessary legal documents that can be used to back up any claim we may make.
+
+All I require is your honest co-operation  to enable us see this dealthrough. I  guarantee that this will be executed under legitimate arrangement that will protect you from any breach of the law.Please get in touch with me via my private email address of barrister_tunde@lawyer.com to enable us discuss further. Or, call me on 234-80-33-432-485
+
+Best regards,
+
+
+Barrister Tunde Dosumu (SAN).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________________________________________
+Outgrown your current e-mail service? Get 25MB Storage, POP3 Access,
+Advanced Spam protection with LYCOS MAIL PLUS.
+http://login.mail.lycos.com/brandPage.shtml?pageId=plus&ref=lmtplus
+--------------------------------------------------
+[2025-05-29 10:17:16] Rezultat:  LEGITIM
+Text: Ref: 34652 - CIC Associate Program - Security Consultant
+
+Dear Cosmin - Ionut Trifu,
+ 
+We regret to inform you that after careful consideration, we have decided to pursue other candidates whose application more closely aligns with the specific requirements of the position. We appreciate the time and effort you invested in the application process.
+ 
+As per our company policies, your application will be kept active in our system for other IBM Recruiters to review for 12 months (or 6 months for residents of Germany and Austria).
+
+We highly encourage you to join our Talent Network, connect with us on Social Media and continue to visit the IBM Careers website. This will ensure that you’re one of the first to see opportunities in the future.
+
+Additionally, I would like to share some free online learning resources that IBM has made available to anyone who may be interested.
+
+Offerings include:
+IBM Skills
+IBM Skills helps you build critical technology skills for today and stay competitive tomorrow. IBM has made thousands of online courses and badge certifications freely available. This includes offerings IBM has created in partnership with universities from all over the world. You can find more information here - https://skillsbuild.org/
+
+Open P-Tech
+Technology and jobs are changing faster than education systems. Open P-Tech, for teachers and students, allows students aged 14-20 to complete coursework on the platform and earn industry recognized “digital badges” that can be added to their resumes and social networks.
+
+We hope that you will take advantage of these offerings for yourself and please feel free to share these resources with your family and friends.
+
+Your interest in IBM is appreciated and we wish you the best in your future endeavors.
+
+Sincerely,
+IBM Talent Acquisition Team
+--------------------------------------------------
+[2025-05-29 10:17:31] Rezultat:  LEGITIM
+Text: https://www.kaggle.com/datasets/naserabdullahalam/phishing-email-dataset/code
+--------------------------------------------------
+[2025-05-29 11:00:02] Rezultat: ⚠️ PHISHING!
+Text: CONFIDENTIAL/COOPERATION
+
+IT IS MY GREAT PLEASURE IN WRITING YOU THIS LETTER ON BEHALF OF MY COLLEAGUES AND MYSELF.
+
+YOUR PARTICULARS WERE GIVEN TO ME BY A MEMBER OF THE NIGERIAN EXPORT PROMOTION COUNCIL (NEPC) WHO WAS AT THE FEDERAL GOVERNMENT DELEGATION TO YOUR COUNTRY DURING A TRADE EXHIBITION. I HAVE DECIDED TO SEEK A CONFIDENTIAL COOPERATION WITH YOU IN THE EXECUTION OF THE DEAL DESCRIBED HERE FOR THE BENEFIT OF ALL PARTIES INVOLVED AND HOPE THAT YOU WILL KEEP IT AS TOP SECRET BECAUSE OF THE NATURE OF THE BUSINESS AND THE PERSONALITIES INVOLVED.
+
+WITHIN THE MINISTRY OF POWER AND STEEL WHERE I WORK AS A DIRECTOR PROJECT IMPLEMENTATION AND WITH THE COOPERATION OF FOUR OTHER TOP OFFICIALS, WE HAVE IN OUR POSSESSION AS OVERDUE PAYMENT BILLS TOTALLING $45,000 000:00m USD (FORTY FIVE MILLION UNITED STATE DOLLARS) WHICH WE WANT TO TRANSFER ABROAD WITH THE ASSISTANCE AND COOPERATION OF A TRUSTED FOREIGN FIRM OR INDIVIDUAL WHO WILL RECEIVE THE SAID FUND ON OUR BEHALF INTO ANY ACCOUNT PROVIDED TO RECEIVE SUCH FUNDS. WE ARE HANDICAPPED IN THIS DEAL BECAUSE THE CIVIL SERVICE CODE OF CONDUCT DOES NOT ALLOW PUBLIC SERVANTS LIKE US TO OPERATE OFFSHORE ACCOUNT, HENCE YOUR IMPORTANCE IN THE WHOLE TRANSACTION.
+
+THE SAID AMOUNT WHICH WE HAVE GOTTEN APPROVAL TO REMIT BY TELEGRAPHIC TRANSFER (T.T.) TO FOREIGN BANK ACCOUNT YOU WILL PROVIDE BY FILING IN AN APPLICATION THROUGH MY MINISTRY FOR THE TRANSFER OF RIGHT AND PRIVILEGES TO YOU.
+
+SINCE THE PRESENT NEW CIVILIAN GOVERNMENT OF MY COUNTRY IS DETERMINED TO PAY EVERY FOREIGN CONTRACTOR ALL DEBTS OWED SO AS TO MAINTAIN GOOD RELATIONSHIP WITH FOREIGN GOVERNMENT AND NON-GOVERNMENT FINANCIAL AGENCIES, WE HAVE DECIDED TO INCLUDE OUR BILL FOR APPROVALS WITH THE COOPERATION OF SOME OFFICIALS FROM ALL THE GOVERNMENT MINISTRY WHICH WILL BE INVOLVED IN THE PAYMENT PROCESS. WE ARE SEEKING YOUR ASSISTANCE IN PROVIDING A VITAL ACCOUNT INTO WHICH WE CAN REMIT THIS MONEY BY ACTING AS OUR MAIN PARTNER AND TRUSTEE OR ACTING AS THE ORIGINAL CONTRACTOR. THIS WE CAN DO BY SWAPPING OF ACCOUNT AND CHANGING OF BENEFICIARY AND OTHER FORMS OF DOCUMENTATION UPON APPLICATION FOR CLAIM TO REFLECT THE PAYMENT AND APPROVALS TO BE SECURED ON BEHALF OF YOU. 
+
+I HAVE THE AUTHORITY OF MY PARTNERS INVOLVED TO PROPOSE THAT, SHOULD YOU BE WILLING TO ASSIST US IN THE TRANSACTION, YOUR SHARE OF THE SUM WILL BE 30% OF THE TOTAL SUM, 60% FOR US AND 10% FOR TAXATION AND MISCELLANEOUS EXPENSES.
+
+THE BUSINESS IS 100% SAFE ON YOUR PART, BUT YOU HAVE TO KEEP IT CONFIDENTIAL. DO NOT INFORM YOUR BANKER YET UNLESS INSTRUCTED BY US. ALSO, YOUR AREA OF SPECIALIZATION IS NOT A HIDERANCE TO THE SUCCESSFUL EXECUTION OF THIS TRANSACTION. I HAVE REPOSED MY CONFIDENCE IN YOU AND HOPE THAT YOU WILL NOT DISAPPOINT ME. PLEASE SEND REPLY TO ME TO INDICATE YOUR WILLINGNESS IN ASSISTING US SO THAT I WILL DIRECT YOU ON WHAT NEXT TO DO.INCLUDE YOUR DIRECT TELEPHONE AND FAX NUMBERS IF YOU ARE RESPONDING.
+
+
+THANKS FOR YOUR ANTICIPATED ASSISTANCE.
+
+
+YOURS SINCERELY,
+
+PATRICK  MOHAMMED.
+--------------------------------------------------
+[2025-05-29 11:00:22] Rezultat:  LEGITIM
+Text: Ref: 34652 - CIC Associate Program - Security Consultant
+
+Dear Cosmin - Ionut Trifu,
+ 
+We regret to inform you that after careful consideration, we have decided to pursue other candidates whose application more closely aligns with the specific requirements of the position. We appreciate the time and effort you invested in the application process.
+ 
+As per our company policies, your application will be kept active in our system for other IBM Recruiters to review for 12 months (or 6 months for residents of Germany and Austria).
+
+We highly encourage you to join our Talent Network, connect with us on Social Media and continue to visit the IBM Careers website. This will ensure that you’re one of the first to see opportunities in the future.
+
+Additionally, I would like to share some free online learning resources that IBM has made available to anyone who may be interested.
+
+Offerings include:
+IBM Skills
+IBM Skills helps you build critical technology skills for today and stay competitive tomorrow. IBM has made thousands of online courses and badge certifications freely available. This includes offerings IBM has created in partnership with universities from all over the world. You can find more information here - https://skillsbuild.org/
+
+Open P-Tech
+Technology and jobs are changing faster than education systems. Open P-Tech, for teachers and students, allows students aged 14-20 to complete coursework on the platform and earn industry recognized “digital badges” that can be added to their resumes and social networks.
+
+We hope that you will take advantage of these offerings for yourself and please feel free to share these resources with your family and friends.
+
+Your interest in IBM is appreciated and we wish you the best in your future endeavors.
+
+Sincerely,
+IBM Talent Acquisition Team
+Did a friend forward this to you? You can subscribe here.
+--------------------------------------------------
+[2025-05-29 11:00:32] Rezultat: ⚠️ PHISHING!
+Text: Good day,
+
+It is my humble pleasure to write this letter irrespective 
+of the fact 
+that you do not know me. However, I came to know of you in 
+my private 
+search for a reliable and trustworthy person that can 
+handle a 
+confidential transaction of this nature in respect of this, 
+I got your 
+contact through an uprooted search on the internet. Though 
+I know that 
+a transaction of this magnitude will make any one 
+apprehensive and 
+worried, but I am assuring you that all will be well at the 
+end of the 
+day
+I am Stevens Bangura, son of late Mr John Bangura of Sierra 
+Leone who 
+was killed by the Sierra Leone's rebel forces on the 24th 
+of 
+December,1999 in my country Sierra Leone.
+When he was still alive, he deposited one trunk box 
+containing the sum 
+of USD$30 million dollars in cash (Ten Million dollars). 
+with a private 
+security and safe deposit company here in Abidjan Cote 
+dÂ´Ivoire. This 
+money was made from the sell of Gold and Diamond by my 
+mother and she 
+have already decided to use this money for future 
+investment of the 
+family.
+Recently, I rushed down to Abidjan after being able to 
+locate where my 
+late father kept the depository Agreement made between 
+himself and the 
+security company. I have confirmed from the security 
+company that the 
+consignment is in their custody, when I demanded for the 
+release of the 
+consignment to me in my capacity of being the son of Mr 
+Bangura, 
+the depositor of the consignment, I was told that in the 
+absence of my 
+father, the only person that can demand for the release of 
+the 
+consignment is my late fatherÂ´s foreign partner on whose 
+behalf the 
+consignment was deposited.
+Meanwhile, my father have instructed me that in the case of 
+his death, 
+that I should look for a trusted foreigner who can assist 
+me to move 
+out this money from CÃ´te dÂ´Ivoire immediately for 
+investment .
+
+Based on this , I solicit for your assistance to transfer 
+this fund 
+into your Account, but I will demand for the following 
+requirement:
+
+(1) Could you provide for me a safe Bank Account where
+this fund will be transferred to in your country after 
+retrieving the 
+box containing the money from the custody of the security 
+company.
+
+(2) Could you be able to introduce me to a profitable 
+business venture 
+that would not require much technical expertise in your 
+country where 
+part of this fund will be invested?
+
+I am a Christian and I will please, want you to handle this 
+transaction based on the trust I have established on you.
+For your assistance in this transaction, I have decided to 
+compensate 
+you with 10 percent of the total amount at the end of this 
+business. 
+The security of this business is very important to me and 
+as such, I 
+would like you to keep this business very confidential.
+I shall expect an early response from you.
+Thank you and God bless.
+
+Yours sincerely,
+Stevens Bangura
+_________________________________________________________ 
+Gagne une PS2 ! Envoie un SMS avec le code PS au 61166
+(0,35 Hors coÃ»t du SMS)
+--------------------------------------------------
